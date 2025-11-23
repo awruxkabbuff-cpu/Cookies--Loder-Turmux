@@ -1,0 +1,111 @@
+import requests
+import json
+import time
+import re
+import os
+
+# -------------------------------------------------
+# VIRAT — COOKIES BASED MESSENGER GROUP SENDER
+# -------------------------------------------------
+
+def clear():
+    os.system("clear")
+
+LOGO = """
+██╗   ██╗██╗██████╗  █████╗ ████████╗
+██║   ██║██║██╔══██╗██╔══██╗╚══██╔══╝
+██║   ██║██║██████╔╝███████║   ██║   
+╚██╗ ██╔╝██║██╔═══╝ ██╔══██║   ██║   
+ ╚████╔╝ ██║██║     ██║  ██║   ██║   
+  ╚═══╝  ╚═╝╚═╝     ╚═╝  ╚═╝   ╚═╝   
+        VIRAT — Messenger Bot
+-----------------------------------------
+"""
+
+clear()
+print(LOGO)
+
+# ------------------------------
+# USER INPUTS
+# ------------------------------
+
+cookies_input = input("Paste Your Facebook Cookies: ").strip()
+thread_id = input("Enter Messenger Group Thread ID: ").strip()
+msg_file = input("Enter Message File Path: ").strip()
+delay = int(input("Enter Delay (Seconds): "))
+
+# ------------------------------
+# READ MESSAGES
+# ------------------------------
+
+with open(msg_file, "r", encoding="utf-8") as f:
+    messages = [m.strip() for m in f.readlines() if m.strip()]
+
+# ------------------------------
+# CONVERT COOKIES TO DICT
+# ------------------------------
+
+cookie_dict = {}
+for i in cookies_input.split(";"):
+    if "=" in i:
+        name, value = i.strip().split("=", 1)
+        cookie_dict[name] = value
+
+# ------------------------------
+# GET ACCESS TOKEN USING COOKIES
+# ------------------------------
+
+print("\nFetching Token...")
+
+token_url = "https://business.facebook.com/business_locations"
+headers = {
+    "User-Agent": "Mozilla/5.0 (Linux; Android 11)",
+    "Cookie": cookies_input
+}
+
+r = requests.get(token_url, headers=headers)
+match = re.search(r"(EAAG\w+)", r.text)
+
+if not match:
+    print("❌ Failed to extract EAAG token. Cookies invalid!")
+    exit()
+
+token = match.group(1)
+print("✔ Token Extracted!")
+
+# ------------------------------
+# MESSAGE SENDER API (PRIVATE FB API)
+# ------------------------------
+
+send_url = f"https://graph.facebook.com/v17.0/t_{thread_id}/messages"
+
+print("\n🔥 VIRAT Started — Sending Messages...\n")
+
+index = 0
+fails = 0
+
+while True:
+    try:
+        message = messages[index]
+        index = (index + 1) % len(messages)
+
+        data = {
+            "recipient": json.dumps({"thread_key": f"t_{thread_id}"}),
+            "message": json.dumps({"text": message}),
+            "access_token": token
+        }
+
+        send = requests.post(send_url, data=data, cookies=cookie_dict).json()
+
+        if "message_id" in str(send):
+            print(f"✔ Sent: {message}")
+        else:
+            fails += 1
+            print(f"❌ Failed ({fails}) retrying...")
+
+        time.sleep(delay)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        time.sleep(3)
+        continue
