@@ -1,217 +1,169 @@
-#!/usr/bin/env python3
-# Virat.py — Safe demo version (Termux friendly)
-# No cookies, no Facebook API. Only animated UI + simulated sends.
+import os, sys, requests, re, random, time
+import datetime
+import getpass
+from os import system as psl
+from bs4 import BeautifulSoup as sop
+from concurrent.futures import ThreadPoolExecutor as bsn
 
-import os
-import sys
-import time
-import random
-from itertools import cycle
+psl('rm -rf filer.txt')
+idd = []
 
-# -------------------------
-# Terminal helpers
-# -------------------------
-CSI = "\x1b["
-RESET = CSI + "0m"
-BOLD  = CSI + "1m"
-DIM   = CSI + "2m"
-GREEN = CSI + "32m"
-YELLOW= CSI + "33m"
-CYAN  = CSI + "36m"
-MAG   = CSI + "35m"
-RED   = CSI + "31m"
 
-def clear():
-    os.system("clear" if os.name != "nt" else "cls")
+psl('rm -rf filer.txt')
+idd = []
 
-def safe_input(prompt=""):
-    try:
-        return input(prompt)
-    except (KeyboardInterrupt, EOFError):
-        print("\nExiting...")
-        sys.exit(0)
-
-def type_print(text, delay=0.02, end="\n"):
-    for ch in text:
-        sys.stdout.write(ch)
-        sys.stdout.flush()
-        time.sleep(delay)
-    sys.stdout.write(end)
-    sys.stdout.flush()
-
-# -------------------------
-# Simple spinner context
-# -------------------------
-class Spinner:
-    def __init__(self, text="Loading"):
-        self.text = text
-        self._spin = cycle(["|","/","-","\\"])
-        self.running = False
-
-    def __enter__(self):
-        self.running = True
-        sys.stdout.write(f"{DIM}{self.text} {next(self._spin)}{RESET}")
-        sys.stdout.flush()
-        self._start_time = time.time()
-        return self
-
-    def __exit__(self, exc_type, exc, tb):
-        self.running = False
-        elapsed = time.time() - self._start_time
-        sys.stdout.write("\r" + " " * (len(self.text) + 4) + "\r")
-        sys.stdout.flush()
-
-    def tick(self):
-        if not self.running:
-            return
-        sys.stdout.write("\r" + f"{DIM}{self.text} {next(self._spin)}{RESET}")
-        sys.stdout.flush()
-
-# -------------------------
-# Banner / Logo
-# -------------------------
-LOGO = r"""
-██╗   ██╗██╗██████╗  █████╗ ████████╗
-██║   ██║██║██╔══██╗██╔══██╗╚══██╔══╝
-██║   ██║██║██████╔╝███████║   ██║   
-╚██╗ ██╔╝██║██╔═══╝ ██╔══██║   ██║   
- ╚████╔╝ ██║██║     ██║  ██║   ██║   
-  ╚═══╝  ╚═╝╚═╝     ╚═╝  ╚═╝   ╚═╝   
-        VIRAT — Messenger Bot (Demo)
------------------------------------------
-"""
-
-# -------------------------
-# Simulated send (safe)
-# -------------------------
-def simulated_send(thread_id, message):
-    """
-    Simulate sending a message:
-    - Small delay to mimic network/typing.
-    - Randomly succeed or fail (configurable).
-    Returns (success: bool, info: str)
-    """
-    # emulate typing time proportional to message length
-    typing_time = min(0.05 * len(message), 3.0)
-    for t in range(int(typing_time*10)):
-        time.sleep(0.1)
-    # 90% success chance
-    success = random.random() < 0.90
-    if success:
-        # fake message id
-        msgid = f"msg_{random.randint(10000,99999)}"
-        return True, f"message_id:{msgid}"
-    else:
-        return False, "network_error"
-
-# -------------------------
-# Progress bar
-# -------------------------
-def progress_bar(current, total, width=30):
-    pct = current / total
-    filled = int(width * pct)
-    bar = "[" + "#" * filled + "-" * (width - filled) + "]"
-    return f"{bar} {int(pct*100):3d}%"
-
-# -------------------------
-# Main interactive flow
-# -------------------------
+    
 def main():
-    clear()
-    print(CYAN + LOGO + RESET)
-    type_print(f"{BOLD}Welcome to VIRAT (Demo){RESET}", 0.01)
-    print()
+    psl('clear')
+    print('-------------------------------------------')
+    
+  
+    print('\033[1;36m  CREATE BY >>  THE LEGEND BROKEN BOII VIR4T KING  ')
+    print('-------------------------------------------')
+    print('\033[1;36m  FEAR THE FIGHTER')
+    print('\033[1;36m  FB ID LINK >> https://www.facebook.com/legandarnav315 ')
+    print('\033[1;36m  WHATS APP >> +918284041662 ')
+    print('\033[1;36m  Note >>  GoD Abuser + Gaddari Krne Vala Randi Ka Baccha  ')
+    print('-------------------------------------------')
+    coki = input(' [+] Inter Cookies : ')
+    cookies={'cookie': coki}
+    ch = requests.get('https://mbasic.facebook.com/', cookies=cookies)
+    if 'mbasic_logout_button' in ch.text:
+        pass
+    else:
+        print(' \x1b[1;91mYour Account is on Checkpoint !!! \x1b[1;97m')
+        os.sys.exit()
+    print(' \x1b[1;92m Account Logged in Successfully\x1b[1;97m ')
+    print('-------------------------------------------')
+    delay = int(input('\033[1;36m [+] Delay Seconds : '))
+    print('-------------------------------------------')
+    lnk = input('\033[1;36m [+] Chat/Inbox Link id : ')
+    print('-------------------------------------------')
+    lim = int(input('\033[1;36m [+] Repeat File : '))
+    print('-------------------------------------------')
+    hater = input('\033[1;36m [+] Haters Name : ')
+    print('-------------------------------------------')
+    filee = input('\033[1;36m [+] File : ')
+    fileee = open(filee,'r').read()
+    cpy(fileee,lim)
+    file = open('filer.txt','r').readlines()
+    idd.append(file)
+    with bsn(max_workers=30) as crack:
+        psl('clear')
+        print('')
+        print('-------------------------------------------')
+                ___   _   _  _____ _   _ _   _ 
+ / _ \ | \ | |/  ___| | | | | | |
+/ /_\ \|  \| |\ `--.| |_| | | | |
+|  _  || . ` | `--. \  _  | | | |
+| | | || |\  |/\__/ / | | | |_| |
+\_| |_/\_| \_/\____/\_| |_/\___/
 
-    # User inputs
-    cookies_note = "(Note: This demo DOES NOT use cookies or real APIs.)"
-    print(YELLOW + cookies_note + RESET)
-    cookies_input = safe_input("Paste Your Facebook Cookies (or press Enter to skip): ").strip()
-    if cookies_input:
-        print(DIM + "Input received but will NOT be used in demo." + RESET)
-    thread_id = safe_input("Enter Messenger Group Thread ID (demo): ").strip() or "demo_thread"
-    msg_file = safe_input("Enter Message File Path (e.g. messages.txt): ").strip()
-    if not msg_file:
-        print(RED + "No message file path provided. Exiting." + RESET)
-        return
+        print('\033[1;36m [+]THE LEGEND BROKEN BOII V1R4T KING  ')
+        print('-------------------------------------------')
+        print(' \033[1;33m[+] Total messages : %s' %(len(file)))
+        print(' \033[1;34m[+]THE CONVO TOOL RUNNING YOUR MOBILE BACKGROUND ')
+        print('-------------------------------------------')
+        for mess in idd:
+            sm = '1'
+            if sm == '1':
+                crack.submit(msg,mess,coki,lnk,delay,hater)
+        os.sys.exit()
+
+def msg(mess,coki,lnk,delay,hater):
+    ses = requests.Session()
     try:
-        with open(msg_file, "r", encoding="utf-8") as f:
-            messages = [m.strip() for m in f if m.strip()]
-    except FileNotFoundError:
-        print(RED + f"File not found: {msg_file}" + RESET)
-        return
-    if not messages:
-        print(RED + "Message file is empty. Add some lines and retry." + RESET)
-        return
+        for msgs in mess:
+            try:
+                time.sleep(delay)
+                timm = datetime.datetime.now()
+                nm,ti = str(timm).split(' ')
+                tim,hff = ti.split('.')
+                today = datetime.date.today()
+                year,month,day = str(today).split('-')
+                cookies={'cookie': coki}
+                g_url = 'https://d.facebook.com/messages/read/?tid='+lnk
+                g_headers = {
+                    'authority': 'd.facebook.com',
+                    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                    'accept-language': 'en-US,en;q=0.9',
+                    'cache-control': 'max-age=0',
+                    'referer': 'https://d.facebook.com/messages/read/?tid='+lnk,
+                    'sec-ch-prefers-color-scheme': 'light',
+                    'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="101"',
+                    'sec-ch-ua-full-version-list': '" Not A;Brand";v="99.0.0.0", "Chromium";v="101.0.4951.40"',
+                    'sec-ch-ua-mobile': '?1',
+                    'sec-ch-ua-platform': '"Android"',
+                    'sec-ch-ua-platform-version': '"11.0.0"',
+                    'sec-fetch-dest': 'document',
+                    'sec-fetch-mode': 'navigate',
+                    'sec-fetch-site': 'same-origin',
+                    'sec-fetch-user': '?1',
+                    'upgrade-insecure-requests': '1',
+                    'user-agent': 'Mozilla/5.0 (Linux; Android 11; TECNO CE7j) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.40 Mobile Safari/537.36',
+                }
+                res1 = requests.get(url=g_url, cookies=cookies, headers=g_headers).text
+                j2 = re.search(
+                    r'name="jazoest" value="([^"]+)"',
+                    res1
+                ).group(1)
+        
+                fb_dtsg = re.search(
+                    r'name="fb_dtsg" value="([^"]+)"',
+                    res1
+                ).group(1)
+        
+                csid = re.search(
+                    r'name="csid" value="([^"]+)"',
+                    res1
+                ).group(1)
+        
+                tids = re.search(
+                    r'name="tids" value="([^"]+)"',
+                    res1
+                ).group(1)
+            
+                ses.headers.update({
+                    'content-type': 'application/x-www-form-urlencoded',
+                })
+            
+                rose1 = sop(res1, 'html.parser')
+                rose = rose1.find('form',method='post')['action']
+                payload = {
+                    'fb_dtsg': fb_dtsg,
+                    'jazoest': j2,
+                    'body': hater+' '+str(msgs),
+                    'send': 'Send',
+                    'tids': tids,
+                    'wwwupp': 'C3',
+                    'platform_xmd': '',
+                    'referrer': '',
+                    'ctype': '',
+                    'cver': 'legacy',
+                    'csid': csid
+                }
+                host = 'https://d.facebook.com'
+                post = ses.post(url=host+rose, data=payload, cookies=cookies).text
+                print(' \033[1;34m[+] Time :\x1b[1;92m ' +str(tim))
+                print(' \x1b[1;32m[+] Date :\x1b[1;92m ' +day+'/'+month+'/'+year)
+                print(' \x1b[1;34m[+] Haters : \x1b[1;92m' +hater)
+                print(' \x1b[1;33m[+] Message :\x1b[1;92m ' +hater+msgs+'\x1b[1;31m')
+                print('-------------------------------------------')
+            except requests.exceptions.ConnectionError:
+                time.sleep(10)
+                pass
+            except Exception as e:
+                pass
+        loop+=1
+    except requests.exceptions.ConnectionError:
+        time.sleep(10)
+        pass
+    except Exception as e:
+        print(e) 
+        
+   
+def cpy(fileee,lim):
+    for i in range(lim):
+        open('filer.txt','a').write(fileee+'\n')
 
-    # delay input
-    try:
-        delay = float(safe_input("Enter Delay between messages (seconds, e.g. 2): ").strip() or "2")
-    except ValueError:
-        delay = 2.0
-
-    clear()
-    print(MAG + LOGO + RESET)
-    type_print(f"{BOLD}Starting VIRAT Demo...{RESET}\n", 0.01)
-
-    # Simulated token fetch with spinner
-    spinner = Spinner("Fetching token (demo)")
-    spinner.__enter__()
-    for _ in range(20):
-        time.sleep(0.05)
-        spinner.tick()
-    spinner.__exit__(None, None, None)
-    type_print(GREEN + "✔ Token fetched (demo)" + RESET, 0.01)
-    print()
-
-    # Sending loop (goes once through file by default)
-    total = len(messages)
-    sent_count = 0
-    fail_count = 0
-
-    for idx, msg in enumerate(messages, start=1):
-        # show header
-        print(DIM + f"[{idx}/{total}] Thread: {thread_id}" + RESET)
-        # typing animation
-        type_print(CYAN + "Typing: " + RESET, 0.005, end="")
-        type_print(msg, 0.003)
-        # simulated send
-        success, info = simulated_send(thread_id, msg)
-        if success:
-            sent_count += 1
-            print(GREEN + f"✔ Sent: {msg} ({info})" + RESET)
-        else:
-            fail_count += 1
-            print(RED + f"❌ Failed to send ({info}). Will retry once..." + RESET)
-            # quick retry
-            time.sleep(1)
-            success2, info2 = simulated_send(thread_id, msg)
-            if success2:
-                sent_count += 1
-                print(GREEN + f"✔ Retry success: {msg} ({info2})" + RESET)
-            else:
-                print(RED + f"❌ Retry failed: {msg} ({info2})" + RESET)
-
-        # progress bar
-        print(YELLOW + progress_bar(idx, total) + RESET)
-        # delay between messages with animated dots
-        for s in range(int(delay*2)):
-            sys.stdout.write(DIM + "." + RESET)
-            sys.stdout.flush()
-            time.sleep(0.5)
-        print("\n" + "-"*50 + "\n")
-
-    # Summary
-    type_print(BOLD + "Summary:" + RESET, 0.01)
-    print(GREEN + f" Sent: {sent_count}" + RESET)
-    print(RED   + f" Failed: {fail_count}" + RESET)
-    print("\n" + DIM + "This was a safe demo. No real messaging was performed." + RESET)
-
-    # Goodbye animation
-    for ch in "Goodbye from VIRAT Demo!":
-        sys.stdout.write(ch)
-        sys.stdout.flush()
-        time.sleep(0.04)
-    print("\n")
-
-if __name__ == "__main__":
-    main()
+main()
